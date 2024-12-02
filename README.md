@@ -1,4 +1,3 @@
-# Recipe-and-Ratings Data Analysis  
 *UCSD DSC80: Principles of Data Science*  
 **Authors:** Leo Bangayan and Ryan Xavier  
 
