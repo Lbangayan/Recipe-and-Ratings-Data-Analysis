@@ -46,7 +46,8 @@ We ran a permutation test to see if the distribution of average ratings was the 
 
 ## Prediction Problem
 
-Our predictive model will be using a linear regression model in order to predict a recipe's average rating. We chose this variable because we wanted to see what factors go into a popular vs unpopular recipe. Also predicting for average rating would allow us to use all other features because at its time of prediction all other information is already submitted by the creator of the recipe. The way information is submitted is the creator recipe submits a recipe with all its information(minutes, calories, etc) and then people review it so at the time of prediction we had all the submitted data. In order to evaluate our model, we are using root mean squared error. We chose this metric because it is easier to interpret since it is in the same units as our prediction variable of average rating and is widely used.
+This is a regression problem, where the goal is to predict the average rating of a recipe. The response variable is ‘average_rating’, and we chose it as it is the only direct rating variable in our dataset. The metric we are using is RMSE, as RMSE tells us how far our predictions are from the actual values. We are also working with continuous values in ratings, so RMSE is appropriate. The variables we are using are n_ingredients, calories, and contributor_id. We would know these variables before predicting rating because we have to gather the ingredients before cooking,recipes come with caloric information oftentimes so users know if their food fits in their diet, and the recipe states who made the recipe.
+
 
 ## Baseline Model
 Our first model has three features. The first two are quantative(number of ingredients and calories) and the last one is nominal which would be the author of the recipe. In order to use the author we had used a one hot encoded transformer but we just passed through the other two features. Using this current model we got an Root Mean Squared Error(RMSE) of about 0.668 on the test data. This was a pretty good score. It means that our predictions are approximately 0.67 rating points different from the actual rating of the recipe.
@@ -54,13 +55,19 @@ Our first model has three features. The first two are quantative(number of ingre
 
 
 ## Final Model
-To improve our model we added two new features. The first is a binarizer of the for the number of calories a recipe has. This is useful because it simplifies the numurical feature making it easier for the model to identify complex realtionships. The other feature we added was a quantile transformer for our minutes columns. We did this because we noticed that minutes had a couple outlets since some recipes were multiple months long so this transformer added more robustness to our model.
+We used a Binarizer to transform the calories feature, converting it into a binary variable that indicates if a recipe is high-calorie or low-calorie. This simplifies the feature into two categories, which makes it easier for the model to detect relationships between calories and rating, without overfitting to the specific calorie count.  The other feature we added was a quantile transformer for our ‘minutes’ column. We did this because we noticed that minutes had a couple outliers since some recipes were multiple months long so this transformer added more robustness to our model against the outliers.
 
+We used a Lasso algorithm, and the hyperparameters that worked the best were an alpha value of 1.0, and a max_iter of a 1000.The method we used to find the best hyperparameters was GridSearchCV with a scoring method of negative RMSE.After running this model we got a new testing RMSE of 0.642, where in the baseline model we had a testing RMSE of 0.648. This is an improvement from our base model as we reduced RMSE by 0.06, making our model more accurate.
 
-We started using a lasso Regression model and used cross_validation tests with 5 folds to tune our hyperparameters. The best value we found for our alpha value(hyperparameter) is 0.01 and the best value for max iterations was 100. After running this model we got a new RSME of 0.63. This is an improvement from our base model as we reduced RMSE by 0.04 making our model more accurate.
 
 
 
 ## Fairness Analysis
 
-For our Fairness analysis we divided our data into two groups of recipes with a high or low number of ingredients at a threshold of 10 ingredients. We used RMSE as our evaluation metric and the difference in RSME is our sample statistic. Our null Hypothesis is that there is no difference in RMSE from recipes with low or high number of ingredients. Our Alternative Hypothesis is that there is a difference in RMSE from recipes with low or high numbers of ingredients.  After running our permutation test we got a p-value of 0.096 which is not below a 0.05 significance level. This means we fail to reject our null hypothesis that there isn't a difference in prediction accuracy for recipes with high or low number of ingredients.
+For our fairness analysis, we divided our data into two groups of recipes, which was if the recipe had a high or low number of ingredients at a threshold of 10 ingredients. If the recipe has more than 10, it is a high ingredient recipe and if it is less than 10, it is a low ingredient recipe. We used RMSE as our evaluation metric and the signed difference in RMSE between low ingredient and high ingredient recipes  as our sample statistic. 
+
+Our null hypothesis is that our model is fair and the RMSE for high-ingredient recipes and low ingredient recipes is roughly the same and any differences are due to random chance
+Our alternative hypothesis is that our model is unfair and the RMSE for low-ingredient recipes is greater than the RMSE for high-ingredient recipes.
+
+After running our permutation test we got a p-value of 0.096 which is not below a 0.05 significance level. This means we fail to reject our null hypothesis that there isn’t a difference in prediction accuracy for recipes with high or low number of ingredients.
+
