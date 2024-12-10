@@ -6,6 +6,7 @@ This project focuses on analyzing recipe and rating data to uncover trends, patt
 
 ## Cleaning and EDA
 We started with two datasets one containing recipes and another reviews for thsoe recipes. We took the average rating per recipe from the review data and then appended that to our recipe data. The result is that every recipe now includes the average rating from our review data!
+
 | name                                 |   minutes |   n_steps |   n_ingredients |   average_rating |   calories |
 |:-------------------------------------|----------:|----------:|----------------:|-----------------:|-----------:|
 | 1 brownies in the world    best ever |        40 |        10 |               9 |                4 |      138.4 |
