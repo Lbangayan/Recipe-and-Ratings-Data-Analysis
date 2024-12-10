@@ -54,7 +54,7 @@ Our first model has three features. The first two are numerical(number of ingred
 
 
 ## Final Model
-To improve our model we added two new features. The first is a binerizer for the number of calories a recipe has. This is useful because it will make our model more robust to outliers of recipes that have a lot of calories. The other feature we added was a quantile transformer for our minutes columns. We did this because we noticed that minutes had a couple outlets since some recipes were multiple months long so this transformer added more robustness to our model.
+To improve our model we added two new features. The first is a binerizer for the number of calories a recipe has. This is useful because it simplifies the numurical feature making it easier for the model to identify complex realtionships. The other feature we added was a quantile transformer for our minutes columns. We did this because we noticed that minutes had a couple outlets since some recipes were multiple months long so this transformer added more robustness to our model.
 
 
 We started using a lasso Regression model and used Cross validation tests with 5 folds to tune our hyperparameter. The best value we found for our alpha value(hyperparameter) is 0.01. After running this model we got a new RSME of 0.63. This is an improvement from our base model as we reduced RSME by 0.04 making our model more accurate.
