@@ -2,7 +2,7 @@
 **Authors:** Leo Bangayan and Ryan Xavier  
 
 ## Overview  
-This project focuses on analyzing recipe and rating data to uncover trends, patterns, and insights into user preferences and recipe performance. By leveraging various data science techniques, we explore key factors influencing ratings, identify popular recipes and ingredients, and find the relationships minutes(time to cook),user id, nutrution(calories, sugar, etc), number of ingredients and average rating. In our original datasets we have about 83,000 rows with 20 columns of recipe data and 730,000 rows and 12 columns of review data.
+This project focuses on analyzing recipe and rating data to uncover trends, patterns, and insights into user preferences and recipe performance. By leveraging various data science techniques, we explore key factors influencing ratings, identify popular recipes and ingredients, and find the relationships minutes(time to cook),user id, nutrution(calories, sugar, etc), number of ingredients and average rating. In our original datasets we have about 83,000 rows with 20 columns of recipe data and 730,000 rows and 12 columns of review data. The question we want to answer is what types of recipes have higher ratings.
 
 ## Cleaning and EDA
 We started with two datasets one containing recipes and another reviews for those recipes. We took the average rating per recipe from the review data and then appended that to our recipe data. We also broke the nuturion tab into different columns and converted them into float values. The result is that every recipe now includes the average rating and a calories column from our review data!
@@ -36,7 +36,7 @@ This is a pivot table showing the mean of our numerical data at each rating. As 
 ---
 ## Assesment of Missingness
 
-In our assessment of the data we had only three columns with any missing data. The first was average rating which we know to be missing by design since it is a product of the way we merged our data. If a recipe didn't have a review then its average rating would be missing since there is nothing to base it off of. Then we looked at the name but it had only one missing value so we ignored it. That left only missing reviews to look at. After running some permutation tests we found that the shape of the distributions of the number of ingredients is different for recipes with missing descriptions vs recipes that have descriptions meaning that descriptions are MAR dependent on the number of ingredients. In conclusion, we don't believe that there is a NMAR column in our data.
+In our assessment of the data we had only three columns with any missing data. The first was average rating which we know to be missing by design since it is a product of the way we merged our data. If a recipe didn't have a review then its average rating would be missing since there is nothing to base it off of. Then we looked at the name but it had only one missing value so we ignored it. That left only missing reviews to look at. After running some permutation tests we found that the shape of the distributions of the number of ingredients is different for recipes with missing descriptions vs recipes that have descriptions. We can conculde that descriptions is MAR dependent on number of ingredients. In conclusion, we don't believe that there is a NMAR column in our data.
 <iframe src="assets/missingness2.html" width=800 height=600 frameBorder=0></iframe>
 Here is the distribution of the number of ingredients with a description vs the distribution of number of ingredients without a description. Our p value is 0.02 which is under a significance level of 0.05.
 
@@ -54,10 +54,10 @@ Our first model has three features. The first two are quantative(number of ingre
 
 
 ## Final Model
-To improve our model we added two new features. The first is a binerizer of the for the number of calories a recipe has. This is useful because it simplifies the numurical feature making it easier for the model to identify complex realtionships. The other feature we added was a quantile transformer for our minutes columns. We did this because we noticed that minutes had a couple outlets since some recipes were multiple months long so this transformer added more robustness to our model.
+To improve our model we added two new features. The first is a binarizer of the for the number of calories a recipe has. This is useful because it simplifies the numurical feature making it easier for the model to identify complex realtionships. The other feature we added was a quantile transformer for our minutes columns. We did this because we noticed that minutes had a couple outlets since some recipes were multiple months long so this transformer added more robustness to our model.
 
 
-We started using a lasso Regression model and used cross_validation tests with 5 folds to tune our hyperparameter. The best value we found for our alpha value(hyperparameter) is 0.01. After running this model we got a new RSME of 0.63. This is an improvement from our base model as we reduced RMSE by 0.04 making our model more accurate.
+We started using a lasso Regression model and used cross_validation tests with 5 folds to tune our hyperparameters. The best value we found for our alpha value(hyperparameter) is 0.01 and the best value for max iterations was 100. After running this model we got a new RSME of 0.63. This is an improvement from our base model as we reduced RMSE by 0.04 making our model more accurate.
 
 
 
