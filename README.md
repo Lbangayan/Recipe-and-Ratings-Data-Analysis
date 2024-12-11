@@ -2,7 +2,7 @@
 **Authors:** Leo Bangayan and Ryan Xavier  
 
 ## Overview  
-This project focuses on analyzing recipe and rating data to uncover trends, patterns, and insights into user preferences and recipe performance. By leveraging various data science techniques, we explore key factors influencing ratings, identify popular recipes and ingredients, and find the relationships minutes(time to cook),user id, nutrution(calories, sugar, etc), number of ingredients and average rating. In our original datasets we have about 83,000 rows with 20 columns of recipe data and 730,000 rows and 12 columns of review data. The question we want to answer is what types of recipes have higher ratings.
+This project focuses on analyzing recipe and rating data to uncover trends, patterns, and insights into user preferences and recipe performance. By leveraging various data science techniques, we explore key factors influencing ratings, identify popular recipes and ingredients, and find the relationships minutes(time to cook),user id, nutrition(calories, sugar, etc), number of ingredients and average rating. In our original datasets we have about 83,000 rows with 20 columns of recipe data and 730,000 rows and 12 columns of review data. The question we want to answer is what types of recipes have higher ratings.
 
 ## Cleaning and EDA
 We started with two datasets one containing recipes and another reviews for those recipes. We took the average rating per recipe from the review data and then appended that to our recipe data. We also broke the nuturion tab into different columns and converted them into float values. The result is that every recipe now includes the average rating and a calories column from our review data!
