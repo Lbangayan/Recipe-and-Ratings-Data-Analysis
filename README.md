@@ -5,7 +5,7 @@
 This project focuses on analyzing recipe and rating data to uncover trends, patterns, and insights into user preferences and recipe performance. By leveraging various data science techniques, we explore key factors influencing ratings, identify popular recipes and ingredients, and find the relationships minutes(time to cook),user id, nutrition(calories, sugar, etc), number of ingredients and average rating. In our original datasets we have about 83,000 rows with 20 columns of recipe data and 730,000 rows and 12 columns of review data. The question we want to answer is what types of recipes have higher ratings.
 
 ## Cleaning and EDA
-We started with two datasets one containing recipes and another reviews for those recipes. We took the average rating per recipe from the review data and then appended that to our recipe data. We also broke the nuturion tab into different columns and converted them into float values. The result is that every recipe now includes the average rating and a calories column from our review data!
+We started with two datasets one containing recipes and another reviews for those recipes. We took the average rating per recipe from the review data and then appended that to our recipe data. We also broke the nutrition tab into different columns and converted them into float values. The result is that every recipe now includes the average rating and a calories column from our review data!
 
 | name                                 |   minutes |   n_steps |   n_ingredients |   average_rating |   calories |
 |:-------------------------------------|----------:|----------:|----------------:|-----------------:|-----------:|
@@ -20,7 +20,7 @@ This is a univariate plot showing the distribution of average rating of our data
 are much more common than lower ones. One possible explanation is that people are more likely to give a review on a recipe they really like and this could possibly skew the reviews higher.
 
 
-<iframe src="assets/Bivariate.html" width=800 height=600 frameBorder=0></iframe>
+<iframe src="assets/Bivariate2.html" width=800 height=600 frameBorder=0></iframe>
 This is a bivariate plot showing the relationship between the number of ingredients in a recipe and the average calories those recipes had. After filtering out some outliers the general trend shown is that as the number of ingredients increases so does the average calorie count. A possible explanation is that more elaborate recipes are more indulgent and as such have more calories.
 
 |   rating_category |   calories |   minutes |   n_ingredients |   n_steps |
@@ -69,5 +69,5 @@ For our fairness analysis, we divided our data into two groups of recipes, which
 Our null hypothesis is that our model is fair and the RMSE for high-ingredient recipes and low ingredient recipes is roughly the same and any differences are due to random chance
 Our alternative hypothesis is that our model is unfair and the RMSE for low-ingredient recipes is greater than the RMSE for high-ingredient recipes.
 
-After running our permutation test we got a p-value of 0.096 which is not below a 0.05 significance level. This means we fail to reject our null hypothesis that there isn’t a difference in prediction accuracy for recipes with high or low number of ingredients.
+After running our permutation test we got a p-value of 0.092 which is not below a 0.05 significance level. This means we fail to reject our null hypothesis that there isn’t a difference in prediction accuracy for recipes with high or low number of ingredients.
 
